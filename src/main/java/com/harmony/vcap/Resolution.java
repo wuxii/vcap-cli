@@ -15,9 +15,9 @@ public class Resolution {
     double fps;
 
     public Resolution(VideoCapture vc) {
-        this.fps = vc.get(Videoio.CV_CAP_PROP_FPS);
-        this.height = vc.get(Videoio.CV_CAP_PROP_FRAME_HEIGHT);
-        this.width = vc.get(Videoio.CV_CAP_PROP_FRAME_WIDTH);
+        this.fps = vc.get(Videoio.CAP_PROP_FPS);
+        this.height = vc.get(Videoio.CAP_PROP_FRAME_HEIGHT);
+        this.width = vc.get(Videoio.CAP_PROP_FRAME_WIDTH);
     }
 
 }

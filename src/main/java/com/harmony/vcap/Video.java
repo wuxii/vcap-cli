@@ -39,15 +39,17 @@ public class Video {
     public Video(String videoName, File videoFile) {
         this.videoName = videoName;
         this.videoFile = videoFile;
-        VideoCapture vc = new VideoCapture(videoFile.getAbsolutePath());
+        VideoCapture vc = new VideoCapture();
+        vc.open(videoFile.getAbsolutePath());
         this.resolution = new Resolution(vc);
-        this.frameCount = vc.get(Videoio.CV_CAP_PROP_FRAME_COUNT);
-        this.fps = vc.get(Videoio.CV_CAP_PROP_FPS);
+        this.frameCount = vc.get(Videoio.CAP_PROP_FRAME_COUNT);
+        this.fps = vc.get(Videoio.CAP_PROP_FPS);
         this.duration = Duration.ofSeconds((long) (frameCount / fps));
     }
 
     public Iterator<VideoFrame> frameIterator(Duration interval) {
-        VideoCapture vc = new VideoCapture(videoFile.getAbsolutePath());
+        VideoCapture vc = new VideoCapture();
+        vc.open(videoFile.getAbsolutePath());
         return new Iterator<VideoFrame>() {
 
             Duration current = Duration.ofSeconds(0);
@@ -60,7 +62,7 @@ public class Video {
             @Override
             public VideoFrame next() {
                 current = current.plus(interval);
-                vc.set(Videoio.CV_CAP_PROP_POS_MSEC, current.toMillis());
+                vc.set(Videoio.CAP_PROP_POS_MSEC, current.toMillis());
                 Mat frame = new Mat();
                 vc.read(frame);
                 return new VideoFrame(frame, current);

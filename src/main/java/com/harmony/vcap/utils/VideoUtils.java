@@ -21,10 +21,17 @@ public class VideoUtils {
     }
 
     public static boolean isVideoFile(File file) {
+        if (!file.isFile()) {
+            return false;
+        }
+        VideoCapture vc = new VideoCapture();
         try {
-            return file.isFile() && new VideoCapture(file.getAbsolutePath()).get(Videoio.CV_CAP_PROP_FRAME_COUNT) > 0;
+            vc.open(file.getAbsolutePath());
+            return vc.get(Videoio.CAP_PROP_FRAME_COUNT) > 0;
         } catch (Exception e) {
             return false;
+        } finally {
+            vc.release();
         }
     }
 
