@@ -1,6 +1,5 @@
 package com.harmony.vcap;
 
-import nu.pattern.OpenCV;
 import org.apache.commons.cli.*;
 import org.apache.commons.cli.Option.Builder;
 
@@ -20,10 +19,6 @@ import static com.harmony.vcap.utils.VideoUtils.isVideoFile;
  * @author wuxin
  */
 public class Capture {
-
-    static {
-        OpenCV.loadLocally();
-    }
 
     public static void main(String[] args) throws ParseException {
         Options options = options();

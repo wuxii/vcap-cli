@@ -1,7 +1,9 @@
 package com.harmony.vcap;
 
 import com.harmony.vcap.utils.VideoUtils;
-import nu.pattern.OpenCV;
+import org.bytedeco.ffmpeg.ffmpeg;
+import org.bytedeco.javacpp.Loader;
+import org.bytedeco.opencv.opencv_java;
 import org.junit.Test;
 
 import java.io.File;
@@ -12,7 +14,8 @@ import java.io.File;
 public class VcapTest {
 
     static {
-        OpenCV.loadLocally();
+        Loader.load(opencv_java.class);
+        Loader.load(ffmpeg.class);
     }
 
     @Test
@@ -20,7 +23,7 @@ public class VcapTest {
         File[] videoFiles = new File("./videos").listFiles();
         for (File videoFile : videoFiles) {
             if (!VideoUtils.isVideoFile(videoFile)) {
-                System.out.println("去读视频文件失败, " + videoFile);
+                System.out.println("读视频文件失败, " + videoFile);
             }
         }
     }
